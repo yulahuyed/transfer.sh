@@ -7,6 +7,10 @@ ADD . /go/src/github.com/dutchcoders/transfer.sh
 # build & install server
 RUN go build -o /go/bin/transfersh github.com/dutchcoders/transfer.sh
 
-ENTRYPOINT ["/go/bin/transfersh", "--listener", ":8080", "--provider", "s3"]  
+RUN chmod -R 777 /tmp
+
+USER 1001
+
+ENTRYPOINT ["/go/bin/transfersh", "--listener", ":8080", "--provider", "local", "--basedir", "/tmp/"]  
 
 EXPOSE 8080 8080
